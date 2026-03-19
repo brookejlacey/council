@@ -1,0 +1,69 @@
+name: council
+region: nyc
+
+services:
+  - name: api
+    github:
+      repo: brookejlacey/council
+      branch: main
+      deploy_on_push: true
+    source_dir: /backend
+    environment_slug: python
+    http_port: 8000
+    instance_size_slug: apps-s-1vcpu-2gb
+    instance_count: 1
+    build_command: pip install -r requirements.txt
+    run_command: gunicorn --worker-tmp-dir /dev/shm -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000 app.main:app --timeout 120
+    health_check:
+      http_path: /api/health
+      port: 8000
+      period_seconds: 10
+    envs:
+      - key: DO_MODEL_ACCESS_KEY
+        value: "${DO_MODEL_ACCESS_KEY}"
+        scope: RUN_TIME
+        type: SECRET
+      - key: DO_INFERENCE_URL
+        value: "https://inference.do-ai.run/v1"
+        scope: RUN_TIME
+        type: GENERAL
+      - key: DATABASE_URL
+        value: "sqlite+aiosqlite:///./council.db"
+        scope: RUN_TIME
+        type: GENERAL
+
+  - name: web
+    github:
+      repo: brookejlacey/council
+      branch: main
+      deploy_on_push: true
+    source_dir: /frontend
+    environment_slug: node-js
+    http_port: 3000
+    instance_size_slug: apps-s-1vcpu-1gb
+    instance_count: 1
+    build_command: npm install && npm run build
+    run_command: npm start
+    envs:
+      - key: NEXT_PUBLIC_API_URL
+        value: "${APP_URL}/api"
+        scope: BUILD_TIME
+        type: GENERAL
+      - key: NEXT_PUBLIC_WS_URL
+        value: "wss://${APP_DOMAIN}/api"
+        scope: BUILD_TIME
+        type: GENERAL
+
+ingress:
+  rules:
+    - match:
+        path:
+          prefix: /api
+      component:
+        name: api
+        preserve_path_prefix: true
+    - match:
+        path:
+          prefix: /
+      component:
+        name: web

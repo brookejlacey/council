@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@theme {
+  --color-council-bg: #06060A;
+  --color-council-surface: #0E0E14;
+  --color-council-surface-2: #16161F;
+  --color-council-border: #1E1E2E;
+  --color-council-text: #E8E8F0;
+  --color-council-text-muted: #7A7A90;
+  --color-council-accent: #6366F1;
+}
+
+html, body {
+  background: var(--color-council-bg);
+  color: var(--color-council-text);
+  overflow: hidden;
+  height: 100%;
+}
+
+/* ─── Ambient background ─── */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-bg::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 30% 20%, #6366F108 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, #EC489808 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, #06060A 0%, #06060A 100%);
+  animation: ambient-drift 20s ease-in-out infinite;
+}
+
+@keyframes ambient-drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -1%) rotate(1deg); }
+  66% { transform: translate(-1%, 2%) rotate(-1deg); }
+}
+
+/* ─── Phase transitions ─── */
+@keyframes stage-enter {
+  from { opacity: 0; transform: translateY(30px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes stage-exit {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(-20px) scale(0.98); }
+}
+
+.stage-enter {
+  animation: stage-enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ─── Advisor glow ─── */
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.15); opacity: 0; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+/* ─── Typing indicator ─── */
+@keyframes blink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+.typing-dot {
+  animation: blink 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* ─── Gradient text ─── */
+.gradient-text {
+  background: linear-gradient(135deg, #818CF8, #C084FC, #F472B6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-gold {
+  background: linear-gradient(135deg, #F59E0B, #FBBF24, #FDE68A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1E1E2E; border-radius: 2px; }
+
+/* ─── Glass effect ─── */
+.glass {
+  background: rgba(14, 14, 20, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ─── Advisor card hover ─── */
+.advisor-card {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.advisor-card:hover {
+  transform: translateY(-2px);
+}
