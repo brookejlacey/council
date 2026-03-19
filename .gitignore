@@ -27,3 +27,7 @@ Thumbs.db
 
 # Build
 *.standalone/
+
+# Test
+test-results/
+playwright-report/
