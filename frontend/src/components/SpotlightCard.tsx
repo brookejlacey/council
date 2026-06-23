@@ -99,7 +99,7 @@ export default function SpotlightCard({
               ),
               li: ({ children }) => (
                 <li className="flex gap-2">
-                  <span className="text-[#7A7A90] shrink-0">—</span>
+                  <span className="text-[#7A7A90] shrink-0">·</span>
                   <span>{children}</span>
                 </li>
               ),

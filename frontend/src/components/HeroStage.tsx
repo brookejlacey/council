@@ -73,7 +73,7 @@ export default function HeroStage({ onSubmit }: Props) {
         </h1>
         <p className="text-[#7A7A90] text-lg max-w-md mx-auto leading-relaxed">
           Your personal board of advisors.<br />
-          Not one opinion — a deliberation.
+          Not one opinion. A deliberation.
         </p>
       </motion.div>
 

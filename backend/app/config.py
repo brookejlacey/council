@@ -6,7 +6,9 @@ class Settings(BaseSettings):
     app_name: str = "COUNCIL"
     debug: bool = False
 
-    # DigitalOcean Gradient AI
+    # Inference provider. The client auto-detects Anthropic keys (sk-ant-...) and
+    # otherwise speaks the OpenAI-compatible API, so this runs on Anthropic directly,
+    # DigitalOcean Gradient, or any OpenAI-compatible endpoint.
     do_model_access_key: str = ""
     do_inference_url: str = "https://inference.do-ai.run/v1"
 

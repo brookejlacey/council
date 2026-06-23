@@ -222,7 +222,7 @@ test.describe("Council Landing Page", () => {
       page.locator("text=Your personal board of advisors.")
     ).toBeVisible();
     await expect(
-      page.locator("text=Not one opinion — a deliberation.")
+      page.locator("text=Not one opinion. A deliberation.")
     ).toBeVisible();
   });
 

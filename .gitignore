@@ -31,3 +31,8 @@ Thumbs.db
 # Test
 test-results/
 playwright-report/
+
+# Local recording / scratch
+_video/
+_record.mjs
+_frame_*.png
