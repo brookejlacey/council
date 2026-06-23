@@ -36,3 +36,10 @@ playwright-report/
 _video/
 _record.mjs
 _frame_*.png
+
+# Private global rules: this is a PUBLIC repo. Never track the synced rule files,
+# so the global-rules sync (scripts/sync-config-to-repos.sh in the claude repo) can
+# never commit them here, even if this repo is ever flipped private. See the
+# brookejlacey-repo precedent. Excluded from sync via that script's _DENY list too.
+CLAUDE.md
+.claude/
